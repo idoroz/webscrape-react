@@ -10,25 +10,25 @@ let result;
 let yad2result;
 
 let allRes = []
-// const fs = require('fs');
+const fs = require('fs');
 
-// let rawdata = fs.readFileSync('apartments.json');
-// let dirot = JSON.parse(rawdata);
-// let resultArray = Array.prototype.concat.apply([], dirot);
-// let finalRes = []
-// for (let i = 1; i < resultArray.length; i++) {
+let rawdata = fs.readFileSync('apartments.json');
+let dirot = JSON.parse(rawdata);
+let resultArray = Array.prototype.concat.apply([], dirot);
+let finalRes = []
+for (let i = 1; i < resultArray.length; i++) {
 
-//     let curr = resultArray[i];
+    let curr = resultArray[i];
 
-//     curr.key = i.toString();
+    curr.key = i.toString();
 
-//     allRes.push(curr)
-
-
-// }
+    allRes.push(curr)
 
 
-const puppeteer = require('puppeteer');
+}
+
+
+//const puppeteer = require('puppeteer');
 
 // let scrape = async () => {
 //     const browser = await puppeteer.launch({
@@ -114,63 +114,63 @@ const puppeteer = require('puppeteer');
 
 
 
-let scrape2 = async () => {
-    const browser = await puppeteer.launch({
-        headless: false
-    });
+// let scrape2 = async () => {
+//     const browser = await puppeteer.launch({
+//         headless: false
+//     });
 
-    const page = await browser.newPage();
-    await page.goto('https://www.yad2.co.il/realestate/rent/flats-old-north-north-in-tel-aviv-yafo?city=6900&neighborhood=1501&property=1');
-    await page.waitFor(8000);
+//     const page = await browser.newPage();
+//     await page.goto('https://www.yad2.co.il/realestate/rent/flats-old-north-north-in-tel-aviv-yafo?city=6900&neighborhood=1501&property=1');
+//     await page.waitFor(8000);
 
-    const result = await page.evaluate(() => {
+//     const result = await page.evaluate(() => {
 
-        const resLength = 25;
-        let data = []
+//         const resLength = 25;
+//         let data = []
 
-        for (var i = 0; i < resLength; i++) {
+//         for (var i = 0; i < resLength; i++) {
 
-            try {
+//             try {
 
-                let title = document.querySelector('#feed_item_' + i + ' > div > div.right_col > div.rows > span.title').innerHTML.replace(/<!---->|\n/g, '');
-                var titleClean = title.replace(/ {1,}/g, ' ').trim();
-                let price = document.querySelector('#feed_item_' + i + ' > div > div.left_col > div.price').innerText;
-                let rooms = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(1) > span.val').innerText;
-                let floor = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(2) > span.val').innerText;
-                let size = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(3) > span.val').innerText;
-                let thumbImg = document.querySelector('#image_' + i + ' > img').src;
+//                 let title = document.querySelector('#feed_item_' + i + ' > div > div.right_col > div.rows > span.title').innerHTML.replace(/<!---->|\n/g, '');
+//                 var titleClean = title.replace(/ {1,}/g, ' ').trim();
+//                 let price = document.querySelector('#feed_item_' + i + ' > div > div.left_col > div.price').innerText;
+//                 let rooms = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(1) > span.val').innerText;
+//                 let floor = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(2) > span.val').innerText;
+//                 let size = document.querySelector('#feed_item_' + i + ' > div > div.middle_col > div:nth-child(3) > span.val').innerText;
+//                 let thumbImg = document.querySelector('#image_' + i + ' > img').src;
 
-                data.push({
-                    title: titleClean,
-                    price: price.replace('₪', '').trim(),
-                    rooms: rooms,
-                    floor: floor,
-                    size: size,
-                    thumbImg: thumbImg,
-                    liked: false
-                })
+//                 data.push({
+//                     title: titleClean,
+//                     price: price.replace('₪', '').trim(),
+//                     rooms: rooms,
+//                     floor: floor,
+//                     size: size,
+//                     thumbImg: thumbImg,
+//                     liked: false
+//                 })
 
 
-            } catch ( err ) {
-                console.log(err)
-                continue;
-            }
-        }
+//             } catch ( err ) {
+//                 console.log(err)
+//                 continue;
+//             }
+//         }
 
-        return {
-            data
-        }
+//         return {
+//             data
+//         }
 
-    });
+//     });
 
-    // browser.close();
-    return result;
-};
+//     // browser.close();
+//     return result;
+// };
 
-scrape2().then((value) => {
-    console.log(value); // Success!
-    allRes.push(value.data)
-});
+// scrape2().then((value) => {
+//     console.log(value); // Success!
+//     allRes.push(value.data)
+// });
 
 //KOMO //
 
