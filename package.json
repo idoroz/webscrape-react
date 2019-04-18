@@ -3,16 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.4",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "node-fetch": "^2.3.0",
+    "nodemon": "^1.18.10",
+    "puppeteer": "^1.13.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon server.js",
+    "frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": "react-app"
   },

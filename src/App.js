@@ -1,28 +1,86 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import ApartmentBox from './components/ApartmentBox'
 import './App.css';
 
+
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
+    state = {
+        results: []
+    }
+
+    componentDidMount() {
+        axios.get(`/test`)
+            .then(res => {
+                const results = res.data;
+                this.setState({
+                    results
+                });
+            })
+    }
+
+    handleLike = (item) => {
+        let itemImgURL = item.thumbImg
+        let counters = [...this.state.results];
+        let newResults = []
+
+        for (let i = 0; i < counters.length; i++) {
+
+            if (counters[i].thumbImg === itemImgURL) {
+
+                if (counters[i].liked === true) {
+                    counters[i].liked = false;
+                } else {
+                    counters[i].liked = true;
+                }
+
+            }
+
+            newResults.push(counters[i])
+        }
+
+
+        this.setState({
+            results: newResults,
+        })
+    }
+
+
+    render() {
+
+        let rows = this.state.results
+        // rows.sort(() => Math.random() - 0.5)
+        console.log(rows)
+        return (
+            <div className="App">
+  <Paper>
+          {rows.map(row => {
+                return (
+                    <ApartmentBox key={row.key}
+                    thumbImg={row.thumbImg}
+                    title ={row.title}
+                    size = {row.size}
+                    rooms = {row.rooms}
+                    floor = {row.floor}
+                    price = {row.price}
+                    liked = {row.liked}
+                    onLike = {this.handleLike}>
+                    </ApartmentBox>
+                );
+            })}
+
+    </Paper>
       </div>
-    );
-  }
+        );
+    }
 }
 
 export default App;
